@@ -35,10 +35,10 @@ struct pushbullet_config {
 
 #define pkv(x) #x, &pbc->x
 static int pushbullet_config_do(char *arg, struct pushbullet_config *pbc) {
-    const static char* type_note = "note";
-    const static char* type_link = "url";
+    const char* type_note = "note";
+    const char* type_link = "url";
 
-    const static char* default_title = "uWSGI Alert!";
+    const char* default_title = "uWSGI Alert!";
 
     memset(pbc, 0, sizeof(struct pushbullet_config));
 
