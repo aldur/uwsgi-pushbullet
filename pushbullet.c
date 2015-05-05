@@ -236,7 +236,7 @@ clear:
     return ret;
 }
 
-static void pushover_alarm_func(struct uwsgi_alarm_instance *uai, char *msg, size_t len) {
+static void pushbullet_alarm_func(struct uwsgi_alarm_instance *uai, char *msg, size_t len) {
     struct pushbullet_config *pbc = (struct pushbullet_config *)uai->data_ptr;
 
     char *tmp = uwsgi_concat2n(msg, len, "", 0);
@@ -244,7 +244,7 @@ static void pushover_alarm_func(struct uwsgi_alarm_instance *uai, char *msg, siz
     free(tmp);
 }
 
-static void pushover_alarm_init(struct uwsgi_alarm_instance *uai) {
+static void pushbullet_alarm_init(struct uwsgi_alarm_instance *uai) {
     struct pushbullet_config *pbc = uwsgi_calloc(sizeof(struct pushbullet_config));
 
     if (pushbullet_config_do(uai->arg, pbc)) {
@@ -256,7 +256,7 @@ static void pushover_alarm_init(struct uwsgi_alarm_instance *uai) {
 
 static void pushbullet_register() {
     uwsgi_register_hook("pushbullet", pushbullet_hook);
-    uwsgi_register_alarm("pushbullet", pushover_alarm_init, pushover_alarm_func);
+    uwsgi_register_alarm("pushbullet", pushbullet_alarm_init, pushbullet_alarm_func);
 }
 
 struct uwsgi_plugin pushbullet_plugin = {
