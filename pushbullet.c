@@ -94,28 +94,28 @@ static void pushbullet_free(struct pushbullet_config *pbc) {
 static json_t *build_json(struct pushbullet_config *pbc, char* body) {
     json_t *j = json_object();
 
-    if (json_object_set(j, "type", json_string(pbc->type))) goto error;
-    if (json_object_set(j, "title", json_string(pbc->title))) goto error;
+    if (json_object_set_new(j, "type", json_string(pbc->type))) goto error;
+    if (json_object_set_new(j, "title", json_string(pbc->title))) goto error;
 
     if (body) {
-        if (json_object_set(j, "body", json_string(body))) goto error;
+        if (json_object_set_new(j, "body", json_string(body))) goto error;
     } else {
-        if (json_object_set(j, "body", json_string(pbc->body))) goto error;
+        if (json_object_set_new(j, "body", json_string(pbc->body))) goto error;
     }
 
     if (pbc->source_device_iden) {
-        if (json_object_set(j, "source_device_iden", json_string(pbc->source_device_iden))) goto error;
+        if (json_object_set_new(j, "source_device_iden", json_string(pbc->source_device_iden))) goto error;
     }
 
     // Only a device field can be set!
     if (pbc->device_iden) {
-        if (json_object_set(j, "device_iden", json_string(pbc->device_iden))) goto error;
+        if (json_object_set_new(j, "device_iden", json_string(pbc->device_iden))) goto error;
     } else if (pbc->email) {
-        if (json_object_set(j, "email", json_string(pbc->email))) goto error;
+        if (json_object_set_new(j, "email", json_string(pbc->email))) goto error;
     } else if (pbc->channel_tag) {
-        if (json_object_set(j, "channel_tag", json_string(pbc->channel_tag))) goto error;
+        if (json_object_set_new(j, "channel_tag", json_string(pbc->channel_tag))) goto error;
     } else if (pbc->client_iden) {
-        if (json_object_set(j, "client_iden", json_string(pbc->client_iden))) goto error;
+        if (json_object_set_new(j, "client_iden", json_string(pbc->client_iden))) goto error;
     }
 
     return j;
